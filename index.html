@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Renée Figuera | Galería de Arte Digital Premium</title>
+  <meta name="description" content="Explora la colección oficial de Renée Figuera. Obras originales en óleo sobre lienzo, exposiciones exclusivas y adquisición directa de arte premium.">
+  
+  <link rel="canonical" href="https://renee.nexolab.lat/">
+
+  <meta property="og:type" content="website">  
+  <meta property="og:url" content="https://renee.nexolab.lat/">  
+  <meta property="og:title" content="Renée Figuera | Galería de Arte Digital Premium">  
+  <meta property="og:description" content="Explora la colección oficial de Renée Figuera. Obras originales en óleo sobre lienzo, exposiciones exclusivas y adquisición directa de arte premium.">
+  <meta property="og:image" content="/artista-2026.jpg">
+  
+<meta property="og:image:secure_url" content="/artista-2026.jpg">  
+  <meta property="og:image:type" content="image/jpeg">  
+  <meta property="og:image:width" content="1200">  
+  <meta property="og:image:height" content="630">  
+  <meta property="og:image:alt" content="Galería oficial de Renée Figuera">
+  
+  <meta name="twitter:card" content="summary_large_image">  
+  <meta name="twitter:title" content="Renée Figuera | Galería de Arte Digital Premium">  
+  <meta name="twitter:description" content="Explora la colección oficial de Renée Figuera. Obras originales en óleo sobre lienzo, exposiciones exclusivas y adquisición directa de arte premium.">  
+  <meta name="twitter:image" content="/artista-2026.jpg">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet">
+
+ 
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --accent: #8c6d31; 
+      --frame-border: #e2e2e0;
+      --soft-gray: #f9f9f7;
+      --shadow-soft: rgba(0, 0, 0, 0.05);
+      --shadow-hard: rgba(0, 0, 0, 0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      background-color: var(--bg); 
+      color: var(--text); 
+      font-family: 'Inter', sans-serif; 
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 1. HERO FULLSCREEN (Inmersivo para tu montaje de Canva) */
+    .hero {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('hero-arte.jpg');
+      background-size: cover; 
+      background-position: center top; 
+      background-repeat: no-repeat;
+      padding: 24px;
+      position: relative;
+    }
+
+    /* 2. ARQUITECTURA SECCIONES */
+    .section-title {
+      padding: 100px 8% 20px;
+      font-size: 0.8rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #999;
+      font-weight: 600;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 4px;
+    }
+
+    /* 3. EXPERIENCIA EXPOSICIÓN (Deslizar horizontal) */
+    .horizontal-gallery {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 60px 8%;
+      gap: 60px;
+      scrollbar-width: none;
+      justify-content: center; 
+      width: 100%;
+    }
+    .horizontal-gallery::-webkit-scrollbar { display: none; }
+
+    /* 4. GRID EDITORIAL */
+    .grid-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 50px;
+      padding: 60px 8% 120px;
+      background-color: var(--soft-gray);
+    }
+
+    /* MARCOS MUSEO PREMIUM */
+    .art-frame-wrapper {
+      scroll-snap-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .art-frame {
+      background: #ffffff;
+      padding: 24px; 
+      border: 14px solid var(--frame-border); 
+      border-image: linear-gradient(to bottom, #f5f5f2 0%, #dcdcd8 100%) 14;
+      box-shadow: 
+        0 15px 35px var(--shadow-soft),
+        0 30px 60px var(--shadow-hard),
+        inset 0 0 12px rgba(0,0,0,0.02);
+      position: relative;
+      transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .art-frame::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 160px; height: 120px;
+      background: radial-gradient(ellipse at center, rgba(255,255,230,0.35) 0%, rgba(255,255,255,0) 70%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .art-frame-wrapper:hover .art-frame::before { opacity: 1; }
+    .art-frame-wrapper:hover .art-frame { transform: translateY(-8px); }
+
+    .art-frame.vertical-frame { width: 340px; height: 440px; }
+    .art-frame.horizontal-frame { width: 440px; height: 340px; }
+
+    .art-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 1px solid rgba(0,0,0,0.12); 
+    }
+
+    /* Ficha Técnica */
+    .art-info {
+      margin-top: 24px;
+      text-align: center;
+    }
+    .art-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+      color: #111;
+    }
+    .art-info p {
+      font-size: 0.7rem;
+      color: #777;
+      letter-spacing: 2px;
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+
+    .status-badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 3px 12px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 1px;
+    }
+    .status-badge.disponible { background-color: #eaf5ea; color: #2e6930; }
+    .status-badge.vendido { background-color: #fbebeb; color: #a83232; }
+
+    /* 5. ELEMENTOS DE CONVERSIÓN Y MULTIMEDIA */
+    .btn-whatsapp {
+      position: fixed; bottom: 40px; right: 40px;
+      background-color: var(--text); color: #fff;
+      padding: 18px 32px; font-size: 0.7rem;
+      font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; text-decoration: none;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    .btn-whatsapp:hover { background-color: var(--accent); transform: scale(1.02); }
+
+    .btn-audio {
+      position: fixed;
+      top: 40px;
+      left: 40px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--frame-border);
+      padding: 12px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+    .btn-audio:hover {
+      background: var(--text);
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+    .btn-audio svg { width: 18px; height: 18px; }
+
+    footer {
+      padding: 120px 8% 80px;
+      text-align: center;
+      background-color: #ffffff;
+      font-size: 0.75rem;
+      color: #888;
+      letter-spacing: 1px;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="btn-audio" class="btn-audio" onclick="controlarAudio()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="icono-audio"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M23 9l-6 6M17 9l6 6" id="lineas-mute"></path></svg>
+  </button>
+
+  <a href="https://wa.me/598091261846?text=%C2%A1Hola%20Ren%C3%A9e%2C%20vengo%20de%20t%C3%BA%20galer%C3%ADa%20online%21" class="btn-whatsapp" target="_blank">Consultar Adquisición</a>
+
+  <section class="hero"></section>
+
+  <h2 class="section-title">Exposición Principal — Deslizar</h2>
+  <div class="horizontal-gallery" id="carousel-destacados"></div>
+
+  <h2 class="section-title">Colección Completa / Catálogo disponible</h2>
+  <div class="grid-gallery" id="grilla-completa"></div>
+
+  <footer>
+    <p style="font-weight: 600; color: #111; text-transform: uppercase; letter-spacing: 2px;">Galería de Arte Renée Figuera</p>
+    <p>Avenida Alvariza esq. Grito de Ascencio — San Carlos, Uruguay</p>
+    <p style="margin-top: 40px; opacity: 0.3; font-size: 0.65rem; letter-spacing: 3px;">NEXOLAB DIGITAL SYSTEMS</p>
+  </footer>
+
+  <script>
+    // Conexión directa y segura con tu Google Sheets en formato CSV
+    const URL_SHEET = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRX-af1gvV0QIMY0u3oHIkAmQjR-KCvEE9-S946QsvanhblkMA4zJ8kvhttBFsfKWW83vsSg85xGmWV/pub?output=csv';
+
+    async function cargarObrasDesdeGoogle() {
+      try {
+        const respuesta = await fetch(URL_SHEET);
+        const datosTexto = await respuesta.text();
+        
+        // Conversión limpia de texto plano a matrices de datos
+        const filas = datosTexto.split('\n').slice(1);
+        const carousel = document.getElementById('carousel-destacados');
+        const grilla = document.getElementById('grilla-completa');
+        const mensajeBase = encodeURIComponent("¡Hola Renée, vengo de tú galería online!");
+
+        filas.forEach(fila => {
+          if (!fila.trim()) return;
+          
+          // Sanitizado de comillas y espacios en el parseo
+          const columnas = fila.split(',').map(col => col.trim().replace(/^"|"$/g, ''));
+          
+          // Mapeo semántico tolerante a tildes y variaciones de idioma de Google Sheets
+          const obra = {
+            titulo: columnas[0],
+            archivo: columnas[1],
+            tipo: columnas[2] ? columnas[2].toLowerCase() : 'v',
+            estado: columnas[3] ? columnas[3].toLowerCase() : 'disponible',
+            destacada: columnas[4] ? (columnas[4].toLowerCase() === 'true' || columnas[4].toLowerCase() === 'verdadero') : false
+          };
+
+          // Si el título viene vacío o es la cabecera por error, saltar
+          if (!obra.titulo || obra.titulo.toLowerCase() === 'titulo' || obra.titulo.toLowerCase() === 'título') return;
+
+          const claseMarco = obra.tipo === 'v' ? 'vertical-frame' : 'horizontal-frame';
+          const badgeEstado = `<span class="status-badge ${obra.estado}">${obra.estado}</span>`;
+
+          const estructuraCuadro = `
+            <a href="https://wa.me/598091261846?text=${mensajeBase}%20Me%20interesa%20obtener%20informaci%C3%B3n%20sobre%20la%20obra%3A%20${encodeURIComponent(obra.titulo)}" class="art-frame-wrapper" target="_blank">
+              <div class="art-frame ${claseMarco}">
+                <img src="${obra.archivo}" alt="${obra.titulo}">
+              </div>
+              <div class="art-info">
+                <h3>${obra.titulo}</h3>
+                <p>Óleo sobre Lienzo</p>
+                ${badgeEstado}
+              </div>
+            </a>
+          `;
+
+          // Discriminador de posicionamiento CRO sin duplicaciones
+          if (obra.destacada) {
+            carousel.innerHTML += estructuraCuadro;
+          } else {
+            grilla.innerHTML += estructuraCuadro;
+          }
+        });
+      } catch (error) {
+        console.error("Error en la sincronización de NexoLab con la base de datos:", error);
+      }
+    }
+
+    // ARQUITECTURA SONORA (Optimizado para evitar precargas lentas)
+    const audioGaleria = new Audio('gladiator.mp3'); 
+    audioGaleria.preload = 'none'; // El navegador no gasta datos en el tema hasta el clic
+    audioGaleria.loop = true;
+    audioGaleria.volume = 0.4;
+
+    function controlarAudio() {
+      const icono = document.getElementById('icono-audio');
+      const lineasMute = document.getElementById('lineas-mute');
+
+      if (audioGaleria.paused) {
+        audioGaleria.play();
+        if(lineasMute) lineasMute.style.display = 'none';
+        icono.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
+      } else {
+        audioGaleria.pause();
+        icono.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M23 9l-6 6M17 9l6 6" id="lineas-mute"></path>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', cargarObrasDesdeGoogle);
+  </script>
+
+</body>
+</html>
