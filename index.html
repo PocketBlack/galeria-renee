@@ -239,63 +239,10 @@
     <p style="margin-top: 40px; opacity: 0.3; font-size: 0.65rem; letter-spacing: 3px;">NEXOLAB DIGITAL SYSTEMS</p>
   </footer>
 
+  <script src="js/config.js"></script>
+  <script src="js/gallery-engine.js"></script>
   <script>
-    // Conexión directa y segura con tu Google Sheets en formato CSV
-    const URL_SHEET = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRX-af1gvV0QIMY0u3oHIkAmQjR-KCvEE9-S946QsvanhblkMA4zJ8kvhttBFsfKWW83vsSg85xGmWV/pub?output=csv';
-
-    async function cargarObrasDesdeGoogle() {
-      try {
-        const respuesta = await fetch(URL_SHEET);
-        const datosTexto = await respuesta.text();
-        
-        const filas = datosTexto.split('\n').slice(1);
-        const carousel = document.getElementById('carousel-destacados');
-        const grilla = document.getElementById('grilla-completa');
-        const mensajeBase = encodeURIComponent("¡Hola Renée, vengo de tú galería online!");
-
-        filas.forEach(fila => {
-          if (!fila.trim()) return;
-          
-          const columnas = fila.split(',').map(col => col.trim().replace(/^"|"$/g, ''));
-          
-          const obra = {
-            titulo: columnas[0],
-            archivo: columnas[1],
-            tipo: columnas[2] ? columnas[2].toLowerCase() : 'v',
-            estado: columnas[3] ? columnas[3].toLowerCase() : 'disponible',
-            destacada: columnas[4] ? (columnas[4].toLowerCase() === 'true' || columnas[4].toLowerCase() === 'verdadero') : false
-          };
-
-          if (!obra.titulo || obra.titulo.toLowerCase() === 'titulo' || obra.titulo.toLowerCase() === 'título') return;
-
-          const claseMarco = obra.tipo === 'v' ? 'vertical-frame' : 'horizontal-frame';
-          const badgeEstado = `<span class="status-badge ${obra.estado}">${obra.estado}</span>`;
-
-          const estructuraCuadro = `
-            <a href="https://wa.me/598091261846?text=${mensajeBase}%20Me%20interesa%20obtener%20informaci%C3%B3n%20sobre%20la%20obra%3A%20${encodeURIComponent(obra.titulo)}" class="art-frame-wrapper" target="_blank">
-              <div class="art-frame ${claseMarco}">
-                <img src="${obra.archivo}" alt="${obra.titulo}">
-              </div>
-              <div class="art-info">
-                <h3>${obra.titulo}</h3>
-                <p>Óleo sobre Lienzo</p>
-                ${badgeEstado}
-              </div>
-            </a>
-          `;
-
-          if (obra.destacada) {
-            carousel.innerHTML += estructuraCuadro;
-          } else {
-            grilla.innerHTML += estructuraCuadro;
-          }
-        });
-      } catch (error) {
-        console.error("Error en la sincronización de NexoLab con la base de datos:", error);
-      }
-    }
-
-    const audioGaleria = new Audio('gladiator.mp3'); 
+    const audioGaleria = new Audio('gladiator.mp3');
     audioGaleria.preload = 'none';
     audioGaleria.loop = true;
     audioGaleria.volume = 0.4;
@@ -306,7 +253,7 @@
 
       if (audioGaleria.paused) {
         audioGaleria.play();
-        if(lineasMute) lineasMute.style.display = 'none';
+        if (lineasMute) lineasMute.style.display = 'none';
         icono.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
       } else {
         audioGaleria.pause();
@@ -314,7 +261,16 @@
       }
     }
 
-    document.addEventListener('DOMContentLoaded', cargarObrasDesdeGoogle);
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        await GalleryEngine.mount({
+          featured: '#carousel-destacados',
+          complete: '#grilla-completa'
+        });
+      } catch (_) {
+        // The engine logs the technical error and keeps the page shell intact.
+      }
+    });
   </script>
 
 </body>
