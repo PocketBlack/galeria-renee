@@ -36,11 +36,7 @@
   }
 
   function parseCsv(text) {
-    return text
-      .replace(/^\uFEFF/, '')
-      .split(/\r?\n/)
-      .filter((line) => line.trim() !== '')
-      .map(parseCsvLine);
+    return text.replace(/^\uFEFF/, '').split(/\r?\n/).filter((line) => line.trim() !== '').map(parseCsvLine);
   }
 
   function normalizeRow(columns) {
@@ -77,40 +73,33 @@
 
     info.append(title, status);
     wrapper.append(image, info);
-
     return wrapper;
   }
 
   async function loadCatalog() {
-    if (!window.ARTIST || !ARTIST.catalog || !ARTIST.catalog.url) {
+    if (typeof ARTIST === 'undefined' || !ARTIST.catalog || !ARTIST.catalog.url) {
       throw new Error('Artist catalog configuration is missing.');
     }
 
     const response = await fetch(ARTIST.catalog.url, { cache: 'no-store' });
-    if (!response.ok) {
-      throw new Error(`Catalog request failed with HTTP ${response.status}.`);
-    }
+    if (!response.ok) throw new Error(`Catalog request failed with HTTP ${response.status}.`);
 
     const rows = parseCsv(await response.text());
     if (!rows.length) return [];
-
     return rows.slice(1).map(normalizeRow).filter((obra) => obra.archivo);
   }
 
   function renderCatalog(catalog, selectors) {
     const featuredContainer = document.querySelector(selectors.featured);
     const completeContainer = document.querySelector(selectors.complete);
-
-    if (!featuredContainer || !completeContainer) {
-      throw new Error('Gallery containers were not found.');
-    }
+    if (!featuredContainer || !completeContainer) throw new Error('Gallery containers were not found.');
 
     featuredContainer.replaceChildren();
     completeContainer.replaceChildren();
 
-    catalog
-      .filter((obra) => obra.destacada)
-      .forEach((obra, index) => featuredContainer.appendChild(createArtworkCard(obra, index)));
+    catalog.filter((obra) => obra.destacada).forEach((obra, index) => {
+      featuredContainer.appendChild(createArtworkCard(obra, index));
+    });
 
     catalog.forEach((obra, index) => completeContainer.appendChild(createArtworkCard(obra, index)));
   }
@@ -122,7 +111,6 @@
     try {
       const catalog = await loadCatalog();
       renderCatalog(catalog, selectors);
-
       if (loading) loading.hidden = true;
       if (error) error.hidden = true;
 
@@ -142,10 +130,5 @@
     }
   }
 
-  window.GalleryEngine = {
-    loadCatalog,
-    renderCatalog,
-    mount,
-    normalizeRow
-  };
+  window.GalleryEngine = { loadCatalog, renderCatalog, mount, normalizeRow };
 })();
