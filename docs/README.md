@@ -12,3 +12,10 @@
 - `REUSE-TEST-V1.md` — test for second-artist reuse
 - `ROADMAP-V1.md` — evolution roadmap
 - `DECISIONS-V1.md` — architecture decisions
+- `RELEASE-V1-1.md` — release candidate scope
+- `RELEASE-NOTES-V1-1.md` — release notes
+- `CHANGELOG-V1.md` — project changelog
+- `MERGE-GATE-V1-1.md` — merge gate
+- `TEST-PLAN-V1-1.md` — technical test plan
+- `STATUS-V1-1.md` — current status
+- `NEXT-TECHNICAL-STEP.md` — next implementation step
