@@ -28,6 +28,7 @@ const ARTIST = {
 
   catalog: {
     source: 'google-sheets',
+    medium: 'Óleo sobre lienzo',
     url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRX-af1gvV0QIMY0u3oHIkAmQjR-KCvEE9-S946QsvanhblkMA4zJ8kvhttBFsfKWW83vsSg85xGmWV/pub?output=csv'
   }
 };
