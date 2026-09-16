@@ -91,7 +91,7 @@
   }
 
   function buildWhatsAppUrl(obra) {
-    const contact = ARTIST && ARTIST.contact;
+    const contact = typeof ARTIST !== 'undefined' ? ARTIST.contact : null;
     if (!contact || !contact.whatsapp) return '';
 
     const baseMessage = contact.message || 'Hola, me gustaría consultar por una obra.';
@@ -131,7 +131,10 @@
     title.textContent = obra.titulo;
 
     const description = document.createElement('p');
-    description.textContent = 'Obra original';
+    const medium = typeof ARTIST !== 'undefined' && ARTIST.catalog
+      ? ARTIST.catalog.medium
+      : '';
+    description.textContent = medium || 'Obra original';
 
     const status = document.createElement('span');
     status.className = `status-badge ${obra.estado}`;
