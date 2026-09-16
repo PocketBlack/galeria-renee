@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artist Gallery System — Engine Test</title>
+  <meta name="description" content="Prueba técnica del motor reutilizable de galerías para artistas.">
+  <style>
+    :root {
+      --bg: #f7f6f2;
+      --surface: #ffffff;
+      --text: #171717;
+      --muted: #77736b;
+      --accent: #8c6d31;
+      --border: #e6e2d9;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    main { width: min(1200px, 92%); margin: 0 auto; padding: 56px 0 100px; }
+    header { margin-bottom: 48px; }
+    .eyebrow { letter-spacing: 4px; text-transform: uppercase; font-size: 11px; color: var(--accent); }
+    h1 { font-family: Georgia, serif; font-weight: 400; margin: 12px 0 8px; font-size: clamp(38px, 6vw, 64px); }
+    .description { max-width: 680px; color: var(--muted); line-height: 1.7; }
+
+    .section { margin-top: 54px; }
+    .section h2 { font-family: Georgia, serif; font-weight: 400; font-size: 30px; margin-bottom: 22px; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .artwork-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 14px;
+    }
+
+    .artwork-card img {
+      display: block;
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      background: #eee;
+    }
+
+    .artwork-card.landscape img { height: 260px; }
+    .artwork-info { padding: 14px 2px 4px; }
+    .artwork-info h3 { margin: 0 0 9px; font-family: Georgia, serif; font-size: 20px; font-weight: 400; }
+    .artwork-status { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; }
+    .artwork-status.disponible { color: var(--accent); }
+
+    .state { padding: 18px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
+    footer { margin-top: 70px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">Artist Gallery System · Engine V1</div>
+      <h1 id="artist-name">Cargando artista…</h1>
+      <p class="description" id="artist-description">Cargando configuración…</p>
+    </header>
+
+    <section class="section" aria-labelledby="featured-title">
+      <h2 id="featured-title">Exposición destacada</h2>
+      <div id="loading-featured" class="state">Cargando catálogo…</div>
+      <div id="error-featured" class="state" hidden></div>
+      <div id="carousel-destacados" class="gallery"></div>
+    </section>
+
+    <section class="section" aria-labelledby="complete-title">
+      <h2 id="complete-title">Catálogo completo</h2>
+      <div id="grilla-completa" class="gallery"></div>
+    </section>
+
+    <footer id="artist-footer"></footer>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/gallery-engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      document.title = `${ARTIST.identity.name} | Artist Gallery System Test`;
+      document.getElementById('artist-name').textContent = ARTIST.identity.name;
+      document.getElementById('artist-description').textContent = ARTIST.positioning.description;
+      document.getElementById('artist-footer').textContent = `${ARTIST.identity.location.city}, ${ARTIST.identity.location.country}`;
+
+      try {
+        await GalleryEngine.mount({
+          featured: '#carousel-destacados',
+          complete: '#grilla-completa',
+          loading: '#loading-featured',
+          error: '#error-featured'
+        });
+      } catch (_) {
+        // The engine renders the user-facing error state.
+      }
+    });
+  </script>
+</body>
+</html>
