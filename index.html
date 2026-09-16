@@ -9,28 +9,26 @@
   
   <link rel="canonical" href="https://renee.nexolab.lat/">
 
-  <meta property="og:type" content="website">  
-  <meta property="og:url" content="https://renee.nexolab.lat/">  
-  <meta property="og:title" content="Renée Figuera | Galería de Arte Digital Premium">  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://renee.nexolab.lat/">
+  <meta property="og:title" content="Renée Figuera | Galería de Arte Digital Premium">
   <meta property="og:description" content="Explora la colección oficial de Renée Figuera. Obras originales en óleo sobre lienzo, exposiciones exclusivas y adquisición directa de arte premium.">
-  <meta property="og:image" content="/artista-2026.jpg">
-  
-<meta property="og:image:secure_url" content="/artista-2026.jpg">  
-  <meta property="og:image:type" content="image/jpeg">  
-  <meta property="og:image:width" content="1200">  
-  <meta property="og:image:height" content="630">  
+  <meta property="og:image" content="https://renee.nexolab.lat/artista-2026.jpg">
+  <meta property="og:image:secure_url" content="https://renee.nexolab.lat/artista-2026.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Galería oficial de Renée Figuera">
   
-  <meta name="twitter:card" content="summary_large_image">  
-  <meta name="twitter:title" content="Renée Figuera | Galería de Arte Digital Premium">  
-  <meta name="twitter:description" content="Explora la colección oficial de Renée Figuera. Obras originales en óleo sobre lienzo, exposiciones exclusivas y adquisición directa de arte premium.">  
-  <meta name="twitter:image" content="/artista-2026.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Renée Figuera | Galería de Arte Digital Premium">
+  <meta name="twitter:description" content="Explora la colección oficial de Renée Figuera. Obras originales en óleo sobre lienzo, exposiciones exclusivas y adquisición directa de arte premium.">
+  <meta name="twitter:image" content="https://renee.nexolab.lat/artista-2026.jpg">
 
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet">
 
- 
   <style>
     :root {
       --bg: #ffffff;
@@ -51,7 +49,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. HERO FULLSCREEN (Inmersivo para tu montaje de Canva) */
     .hero {
       height: 100vh;
       width: 100%;
@@ -66,7 +63,6 @@
       position: relative;
     }
 
-    /* 2. ARQUITECTURA SECCIONES */
     .section-title {
       padding: 100px 8% 20px;
       font-size: 0.8rem;
@@ -78,7 +74,6 @@
       margin-bottom: 4px;
     }
 
-    /* 3. EXPERIENCIA EXPOSICIÓN (Deslizar horizontal) */
     .horizontal-gallery {
       display: flex;
       overflow-x: auto;
@@ -91,7 +86,6 @@
     }
     .horizontal-gallery::-webkit-scrollbar { display: none; }
 
-    /* 4. GRID EDITORIAL */
     .grid-gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -100,7 +94,6 @@
       background-color: var(--soft-gray);
     }
 
-    /* MARCOS MUSEO PREMIUM */
     .art-frame-wrapper {
       scroll-snap-align: center;
       display: flex;
@@ -147,7 +140,6 @@
       border: 1px solid rgba(0,0,0,0.12); 
     }
 
-    /* Ficha Técnica */
     .art-info {
       margin-top: 24px;
       text-align: center;
@@ -180,7 +172,6 @@
     .status-badge.disponible { background-color: #eaf5ea; color: #2e6930; }
     .status-badge.vendido { background-color: #fbebeb; color: #a83232; }
 
-    /* 5. ELEMENTOS DE CONVERSIÓN Y MULTIMEDIA */
     .btn-whatsapp {
       position: fixed; bottom: 40px; right: 40px;
       background-color: var(--text); color: #fff;
@@ -248,70 +239,11 @@
     <p style="margin-top: 40px; opacity: 0.3; font-size: 0.65rem; letter-spacing: 3px;">NEXOLAB DIGITAL SYSTEMS</p>
   </footer>
 
+  <script src="js/config.js"></script>
+  <script src="js/gallery-engine.js"></script>
   <script>
-    // Conexión directa y segura con tu Google Sheets en formato CSV
-    const URL_SHEET = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRX-af1gvV0QIMY0u3oHIkAmQjR-KCvEE9-S946QsvanhblkMA4zJ8kvhttBFsfKWW83vsSg85xGmWV/pub?output=csv';
-
-    async function cargarObrasDesdeGoogle() {
-      try {
-        const respuesta = await fetch(URL_SHEET);
-        const datosTexto = await respuesta.text();
-        
-        // Conversión limpia de texto plano a matrices de datos
-        const filas = datosTexto.split('\n').slice(1);
-        const carousel = document.getElementById('carousel-destacados');
-        const grilla = document.getElementById('grilla-completa');
-        const mensajeBase = encodeURIComponent("¡Hola Renée, vengo de tú galería online!");
-
-        filas.forEach(fila => {
-          if (!fila.trim()) return;
-          
-          // Sanitizado de comillas y espacios en el parseo
-          const columnas = fila.split(',').map(col => col.trim().replace(/^"|"$/g, ''));
-          
-          // Mapeo semántico tolerante a tildes y variaciones de idioma de Google Sheets
-          const obra = {
-            titulo: columnas[0],
-            archivo: columnas[1],
-            tipo: columnas[2] ? columnas[2].toLowerCase() : 'v',
-            estado: columnas[3] ? columnas[3].toLowerCase() : 'disponible',
-            destacada: columnas[4] ? (columnas[4].toLowerCase() === 'true' || columnas[4].toLowerCase() === 'verdadero') : false
-          };
-
-          // Si el título viene vacío o es la cabecera por error, saltar
-          if (!obra.titulo || obra.titulo.toLowerCase() === 'titulo' || obra.titulo.toLowerCase() === 'título') return;
-
-          const claseMarco = obra.tipo === 'v' ? 'vertical-frame' : 'horizontal-frame';
-          const badgeEstado = `<span class="status-badge ${obra.estado}">${obra.estado}</span>`;
-
-          const estructuraCuadro = `
-            <a href="https://wa.me/598091261846?text=${mensajeBase}%20Me%20interesa%20obtener%20informaci%C3%B3n%20sobre%20la%20obra%3A%20${encodeURIComponent(obra.titulo)}" class="art-frame-wrapper" target="_blank">
-              <div class="art-frame ${claseMarco}">
-                <img src="${obra.archivo}" alt="${obra.titulo}">
-              </div>
-              <div class="art-info">
-                <h3>${obra.titulo}</h3>
-                <p>Óleo sobre Lienzo</p>
-                ${badgeEstado}
-              </div>
-            </a>
-          `;
-
-          // Discriminador de posicionamiento CRO sin duplicaciones
-          if (obra.destacada) {
-            carousel.innerHTML += estructuraCuadro;
-          } else {
-            grilla.innerHTML += estructuraCuadro;
-          }
-        });
-      } catch (error) {
-        console.error("Error en la sincronización de NexoLab con la base de datos:", error);
-      }
-    }
-
-    // ARQUITECTURA SONORA (Optimizado para evitar precargas lentas)
-    const audioGaleria = new Audio('gladiator.mp3'); 
-    audioGaleria.preload = 'none'; // El navegador no gasta datos en el tema hasta el clic
+    const audioGaleria = new Audio('gladiator.mp3');
+    audioGaleria.preload = 'none';
     audioGaleria.loop = true;
     audioGaleria.volume = 0.4;
 
@@ -321,7 +253,7 @@
 
       if (audioGaleria.paused) {
         audioGaleria.play();
-        if(lineasMute) lineasMute.style.display = 'none';
+        if (lineasMute) lineasMute.style.display = 'none';
         icono.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
       } else {
         audioGaleria.pause();
@@ -329,7 +261,16 @@
       }
     }
 
-    document.addEventListener('DOMContentLoaded', cargarObrasDesdeGoogle);
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        await GalleryEngine.mount({
+          featured: '#carousel-destacados',
+          complete: '#grilla-completa'
+        });
+      } catch (_) {
+        // The engine logs the technical error and keeps the page shell intact.
+      }
+    });
   </script>
 
 </body>
